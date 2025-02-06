@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="paper-container">
+    <div class="row">
+        <div class="col-md-12 text-center mb-4">
+            <h1>Document Analysis</h1>
+            <p class="lead">Upload PDF or Word documents for AI-powered analysis</p>
+            
+            <!-- Pricing Information -->
+            <div class="pricing-info mb-3">
+                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#pricingTable" 
+                        aria-expanded="false" aria-controls="pricingTable">
+                    View Pricing Details
+                </button>
+                <div class="collapse" id="pricingTable">
+                    <div class="card card-body">
+                        <h5>Analysis Pricing Tiers</h5>
+                        <div class="pricing-table">
+                            <h3>Analysis Pricing</h3>
+                            <p class="pricing-note">Note: Minimum charge of ¥3.50 applies to all documents</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Characters</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Up to 1,000</td>
+                                        <td>¥3.50*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,001 - 5,000</td>
+                                        <td>¥3.50*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5,001 - 10,000</td>
+                                        <td>¥3.50*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10,001 - 50,000</td>
+                                        <td>¥5.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50,001 - 100,000</td>
+                                        <td>¥8.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Over 100,000</td>
+                                        <td>¥10.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="pricing-footnote">* Minimum charge of ¥3.50 applies due to payment processing requirements</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="upload-container" id="dropZone" data-tooltip="Drag & drop your document here" 
+                 role="region" aria-label="File upload area">
+                <div class="upload-content">
+                    <i data-feather="upload-cloud" class="upload-icon" aria-hidden="true"></i>
+                    <h5 class="mb-2">Drag and drop your document here</h5>
+                    <p class="mb-1">or click to browse your files</p>
+                    <small class="text-muted">Supported formats: PDF, DOCX (Max 20MB)</small>
+                    <input type="file" id="fileInput" accept=".pdf,.docx" class="d-none" 
+                           aria-label="Choose a file to upload">
+                </div>
+            </div>
+
+            <!-- Document Info -->
+            <div id="documentInfo" class="mb-4 d-none">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle"></i> Upload a document to begin analysis
+                </div>
+                
+                <div id="documentMetadata" class="card" style="display: none;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-file-alt"></i> Document Details
+                        </h5>
+                        <div class="metadata-content">
+                            <div class="metadata-item">
+                                <i class="fas fa-heading metadata-icon"></i>
+                                <div>
+                                    <label>Title</label>
+                                    <p id="docTitle">-</p>
+                                </div>
+                            </div>
+                            <div class="metadata-item">
+                                <i class="fas fa-file-alt metadata-icon"></i>
+                                <div>
+                                    <label>Original Filename</label>
+                                    <p id="docFilename">-</p>
+                                </div>
+                            </div>
+                            <div class="metadata-item">
+                                <i class="fas fa-text-width metadata-icon"></i>
+                                <div>
+                                    <label>Character Count</label>
+                                    <p id="docCharCount">-</p>
+                                </div>
+                            </div>
+                            <div class="metadata-item">
+                                <i class="fas fa-weight-hanging metadata-icon"></i>
+                                <div>
+                                    <label>File Size</label>
+                                    <p id="docFileSize">-</p>
+                                </div>
+                            </div>
+                            <div class="metadata-item">
+                                <i class="fas fa-file-code metadata-icon"></i>
+                                <div>
+                                    <label>File Type</label>
+                                    <p id="docMimeType">-</p>
+                                </div>
+                            </div>
+                            <div class="metadata-item">
+                                <i class="fas fa-calendar-alt metadata-icon"></i>
+                                <div>
+                                    <label>Upload Date</label>
+                                    <p id="docUploadDate">-</p>
+                                </div>
+                            </div>
+                            <div class="metadata-item">
+                                <i class="fas fa-yen-sign metadata-icon"></i>
+                                <div>
+                                    <label>Analysis Cost</label>
+                                    <p id="docAnalysisCost">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Options -->
+            <div class="analysis-options mt-4">
+                <h5>Analysis Options</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="characterAnalysis" checked>
+                            <label class="form-check-label" for="characterAnalysis">
+                                Character Analysis
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="plotAnalysis" checked>
+                            <label class="form-check-label" for="plotAnalysis">
+                                Plot Analysis
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="thematicAnalysis" checked>
+                            <label class="form-check-label" for="thematicAnalysis">
+                                Thematic Analysis
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="readabilityAssessment" checked>
+                            <label class="form-check-label" for="readabilityAssessment">
+                                Readability Assessment
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="sentimentAnalysis" checked>
+                            <label class="form-check-label" for="sentimentAnalysis">
+                                Sentiment Analysis
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="styleConsistency" checked>
+                            <label class="form-check-label" for="styleConsistency">
+                                Style and Consistency
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div id="progressContainer" class="d-none loading-container" role="progressbar" aria-label="Processing document">
+                <div class="loading-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="loading-text">Processing your document</div>
+                <ul class="loading-steps">
+                    <li class="loading-step" id="uploadStep">
+                        <i data-feather="upload" aria-hidden="true"></i>
+                        <span>Uploading document</span>
+                    </li>
+                    <li class="loading-step" id="processStep">
+                        <i data-feather="cpu" aria-hidden="true"></i>
+                        <span>Processing content</span>
+                    </li>
+                    <li class="loading-step" id="analyzeStep">
+                        <i data-feather="search" aria-hidden="true"></i>
+                        <span>Analyzing document</span>
+                    </li>
+                </ul>
+                <div class="loading-progress">
+                    <div class="loading-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="paymentContainer" class="d-none" role="form" aria-label="Payment form">
+                <div class="analysis-card">
+                    <div class="analysis-section">
+                        <h5 class="mb-3">Payment Details</h5>
+                        <p class="mb-3">Complete the payment to receive your document analysis</p>
+                        <form id="payment-form">
+                            <div class="mb-3">
+                                <div id="card-element" class="form-control" role="group" aria-label="Payment input"></div>
+                                <div id="card-errors" class="text-danger mt-2" role="alert" aria-live="polite"></div>
+                            </div>
+                            <button class="btn btn-primary w-100" id="submit-payment" aria-label="Pay ¥3">
+                                Pay ¥3
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultContainer" class="d-none" role="region" aria-label="Analysis results">
+                <div class="analysis-card">
+                    <div class="analysis-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0">Analysis Results</h5>
+                            <button class="btn btn-outline-primary btn-sm export-button" data-format="json" 
+                                    aria-label="Export results as JSON">
+                                <i data-feather="download" aria-hidden="true"></i> Export JSON
+                            </button>
+                        </div>
+                        <div id="analysisAccordion" class="analysis-accordion">
+                            <!-- Analysis sections will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    let stripe;
+    let elements;
+    let currentDocumentId;
+    let clientSecret;
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    function handleUploadResponse(response) {
+        const documentInfo = document.getElementById('documentInfo');
+        
+        // Update all metadata fields
+        document.getElementById('docTitle').textContent = response.title;
+        document.getElementById('docFilename').textContent = response.filename;
+        document.getElementById('docCharCount').textContent = response.char_count.toLocaleString();
+        document.getElementById('docFileSize').textContent = formatFileSize(response.file_size);
+        document.getElementById('docMimeType').textContent = response.mime_type;
+        document.getElementById('docUploadDate').textContent = response.upload_date;
+        document.getElementById('docAnalysisCost').textContent = `¥${(response.analysis_cost / 100).toFixed(2)}`;
+        
+        // Show the document info card
+        documentInfo.classList.remove('d-none');
+        document.getElementById('documentMetadata').style.display = 'block';
+        
+        // Refresh Feather icons
+        feather.replace();
+        
+        // Initialize payment
+        stripe = Stripe(response.publishable_key);
+        clientSecret = response.client_secret;
+        document_id = response.document_id;
+        
+        // Show success message with pricing
+        Toastify({
+            text: `Document uploaded successfully! Analysis cost: ¥${(response.analysis_cost / 100).toFixed(2)}`,
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#28a745"
+        }).showToast();
+        
+        // Start payment process
+        handlePayment();
+    }
+</script>
+{% endblock %}
