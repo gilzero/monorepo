@@ -1,0 +1,112 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*~
+*.tmp
+*.bak
+.history/
+
+# Python
+__pycache__/
+*.pyc
+*.pyd
+.venv/
+env/
+venv/
+*.egg
+dist/
+build/
+.pytest_cache/
+htmlcov/
+.coverage
+*.log  # General logs, consider more specific rules if needed
+instance/ # Flask instance folder (if applicable)
+.mypy_cache/
+
+# Next.js
+.next/
+out/
+build/
+node_modules/
+package-lock.json # If you use npm
+yarn.lock       # If you use Yarn
+
+# Drupal (adapt as needed for your specific Drupal setup)
+/sites/*/files/* # Exclude files directory, but consider exceptions
+/sites/*/settings.php # Important: Exclude sensitive settings!
+/core/* #  Generally exclude core, but be cautious
+/vendor/*
+/web/modules/* # Consider if you want to exclude contrib modules.
+/web/themes/* # Consider if you want to exclude contrib themes.
+/drush/cache/*
+/private/*
+
+# Flask/FastAPI
+instance/ # Flask instance folder (if applicable)
+.flaskenv
+.env # Environment variables, be careful!
+__pycache__/
+
+# General
+.env # Environment variables - EXTREMELY IMPORTANT TO EXCLUDE
+*.env # More variations of env file names
+.secrets* # Sensitive secrets files
+config.ini # Configuration files that might contain secrets
+*.key # Private keys
+*.pem # Certificate files
+*.crt # Certificate files
+*.pfx # Certificate files
+*.pkcs12 # Certificate files
+.cache/ # Generic cache directories
+tmp/
+temp/
+logs/  # General logs, could be more specific
+*.log  # General logs, consider more specific rules if needed
+.ropeproject/ # Rope IDE project files
+
+# Monorepo specific (adjust for your structure)
+/packages/*/node_modules # Node modules within packages
+/packages/*/dist       # Build artifacts within packages
+/apps/*/node_modules    # Node modules within apps
+/apps/*/dist          # Build artifacts within apps
+/client/node_modules  # Example client folder
+/server/node_modules  # Example Server folder
+
+# Deployment specific
+.ebextensions/  # AWS Elastic Beanstalk
+.platform/      # Heroku
+.dockerignore   # For Docker (create a separate .dockerignore file too)
+docker-compose.override.yml # If you have one, probably should not be checked in
+
+# Testing
+*.testresults
+nosetests.xml
+
+# Archives and compressed files
+*.zip
+*.tar
+*.gz
+*.tgz
+*.rar
+
+# Temporary files created by specific tools
+.idea_workspace.xml # IntelliJ IDEA workspace file
+.gradle/          # Gradle build files (if applicable)
+.mvn/             # Maven build files (if applicable)
+
+# Specific files you might not want to track
+.bash_history
+.zsh_history
+.vimrc.swp # Vim swap file
+
+# If using a package manager other than npm/yarn (e.g., pnpm, bun)
+pnpm-lock.yaml # Example for pnpm
+
+# Files that are intentionally added to the repo despite .gitignore rules
+!keepme # Example: add a file named "keepme" to the repo even if .gitignore rules would normally exclude it.
+
